@@ -1,0 +1,15 @@
+const root=document.documentElement, theme=document.getElementById("theme"), menu=document.getElementById("menu"), nav=document.getElementById("nav");
+const saved=localStorage.getItem("theme"); if(saved) root.dataset.theme=saved;
+function updateIcon(){theme.textContent=root.dataset.theme==="dark"?"☀":"☾"} updateIcon();
+theme.addEventListener("click",()=>{root.dataset.theme=root.dataset.theme==="dark"?"light":"dark";localStorage.setItem("theme",root.dataset.theme);updateIcon()});
+menu.addEventListener("click",()=>{const open=nav.classList.toggle("open");menu.setAttribute("aria-expanded",open)});
+nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
+const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(x=>observer.observe(x));
+const sections=[...document.querySelectorAll("main section[id]")], links=[...document.querySelectorAll("#nav a")];
+window.addEventListener("scroll",()=>{let current="home";sections.forEach(s=>{if(scrollY>=s.offsetTop-140)current=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+current))},{passive:true});
+const dialog=document.getElementById("caseDialog"), title=document.getElementById("caseTitle");
+document.querySelectorAll(".details").forEach(b=>b.addEventListener("click",()=>{title.textContent=b.dataset.case;dialog.showModal()}));
+document.getElementById("closeDialog").addEventListener("click",()=>dialog.close());
+dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()});
+document.getElementById("contactForm").addEventListener("submit",e=>{e.preventDefault();const d=new FormData(e.target);const subject=encodeURIComponent("Portfolio contact from "+d.get("name"));const body=encodeURIComponent("Name: "+d.get("name")+"\nEmail: "+d.get("email")+"\n\n"+d.get("message"));location.href=`mailto:dheenad790@gmail.com?subject=${subject}&body=${body}`;document.getElementById("formStatus").textContent="Opening your email client…"});
