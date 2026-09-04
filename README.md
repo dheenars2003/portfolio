@@ -1,6 +1,7 @@
 # Dheena R — Data Analyst Portfolio
 
 Static, responsive portfolio generated from the supplied portfolio specification.
+live at https://dheenars2003.github.io/portfolio/
 
 ## Run
 Open `index.html` in a browser, or serve the folder with any static server.
